@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==4.0.3"
+
+[dev-packages]
+flake8 = "==4.0.1"
+flake8-commas = "==2.1.0"
+mypy = "==0.931"
+yapf = "==0.32.0"
+
+[requires]
+python_version = "3.10"
