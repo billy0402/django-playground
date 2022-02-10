@@ -51,7 +51,9 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS: list[str] = []
+THIRD_PARTY_APPS = [
+    'webpack_loader',
+]
 
 LOCAL_APPS = [
     'app.books.apps.BooksConfig',
@@ -138,6 +140,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
+    BASE_DIR / '../frontend/build',
 ]
 
 STATIC_ROOT = BASE_DIR / 'assets'
