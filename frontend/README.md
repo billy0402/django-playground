@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## environment
+
+- [macOS 10.15.7](https://www.apple.com/tw/macos/catalina/)
+- [Visual Studio Code 1.63.2](https://code.visualstudio.com/)
+- [nvm 0.39.1, node 16.13.2, npm 8.1.2](https://nodejs.org/en/)
+- [React 17.0.2](https://zh-hant.reactjs.org/)
+
 ## Available Scripts
 
 In the project directory, you can run:
