@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 django = "==4.0.3"
+djangorestframework = "==3.13.1"
 django-environ = "==0.8.1"
 django-split-settings = "==1.1.0"
 
