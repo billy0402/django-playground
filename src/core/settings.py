@@ -51,7 +51,9 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS: list[str] = []
+THIRD_PARTY_APPS = [
+    'rest_framework_simplejwt',
+]
 
 LOCAL_APPS = [
     'app.books.apps.BooksConfig',
