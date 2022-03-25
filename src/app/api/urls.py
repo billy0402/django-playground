@@ -1,16 +1,12 @@
-from django.urls import path
+from django.urls import path, include
 
-from . import views
+from rest_framework.routers import SimpleRouter
 
-app_name = 'books'
+from .views import BookViewSet
+
+router = SimpleRouter(trailing_slash=False)
+router.register('books', BookViewSet)
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('<int:book_id>/', views.show, name='show'),
-    path('add/', views.add, name='add'),
-    path('edit/<int:book_id>/', views.edit, name='edit'),
-    path('delete/<int:book_id>/', views.delete, name='delete'),
-    ###
-    path('', views.index, name='list'),
-    path('<int:book_id>', views.detail, name='detail'),
+    path('', include(router.urls)),
 ]
