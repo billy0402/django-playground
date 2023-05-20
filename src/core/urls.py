@@ -24,6 +24,7 @@ admin.site.site_header = '書店 管理'
 urlpatterns = [
     path('', lambda request: redirect('books:index'), name='root'),
     path('books/', include('src.app.books.urls')),
+    path('auth/', include('src.app.authentication.urls')),
     path('admin/', admin.site.urls),
 ]
 
