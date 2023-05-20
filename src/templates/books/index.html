@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+    <article class="row">
+        <section class="col">
+            {% if perms.books.add_book %}
+                <a href="{% url 'books:add' %}"
+                   class="btn btn-outline-info float-end">
+                    新增書籍
+                </a>
+            {% endif %}
+            <h2>書籍列表</h2>
+            <hr />
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>名稱</th>
+                    <th>標籤</th>
+                    <th>價格</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.id }}</td>
+                        <td>
+                            <a href="{% url 'books:show' book.id %}">
+                                {{ book.name }}
+                            </a>
+                        </td>
+                        <td>標籤: {{ book.tags.all | join:', ' }}</td>
+                        <td>{{ book.price }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td class="text-center" colspan="4">沒有書籍～</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </article>
+{% endblock %}

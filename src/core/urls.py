@@ -15,8 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.shortcuts import redirect
+from django.urls import include, path
+
+admin.site.site_title = '書店 網站管理'
+admin.site.site_header = '書店 管理'
 
 urlpatterns = [
+    path('', lambda request: redirect('books:index'), name='root'),
+    path('books/', include('src.app.books.urls')),
     path('admin/', admin.site.urls),
 ]
+
+handler403 = 'src.utils.error_handlers.permission_denied'
+handler404 = 'src.utils.error_handlers.page_not_found'

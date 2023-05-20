@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+    {% if perms.books.delete_book %}
+        <a href="{% url 'books:delete' book.id %}"
+           class="btn btn-danger float-end">
+            刪除
+        </a>
+    {% endif %}
+    {% if perms.books.change_book %}
+        <a href="{% url 'books:edit' book.id %}"
+           class="btn btn-info float-end me-2">
+            編輯
+        </a>
+    {% endif %}
+
+    <h2>#{{ book.id }} {{ book.name }}</h2>
+    <hr />
+    <p>書名: {{ book.name }}</p>
+    <p>價格: {{ book.price }}</p>
+    <p>作者: {{ book.authors.all | join:', ' }}</p>
+    <p>出版社: {{ book.publisher }}</p>
+    <p>分類: {{ book.classification }}</p>
+    <p>標籤: {{ book.tags.all | join:', ' }}</p>
+    <p>
+        簡介:
+        <br />
+        {{ book.introduction | linebreaksbr }}
+    </p>
+
+    <a href="{% url 'books:index' %}" class="btn btn-primary"><< 返回</a>
+{% endblock %}

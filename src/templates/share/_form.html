@@ -1,0 +1,7 @@
+{% load django_bootstrap5 %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-outline-info float-end">送出</button>
+</form>
