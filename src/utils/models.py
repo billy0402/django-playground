@@ -1,4 +1,13 @@
+import uuid
+
 from django.db import models
+
+
+class UUIDModel(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    class Meta:
+        abstract = True
 
 
 class TimestampModel(models.Model):
@@ -9,6 +18,6 @@ class TimestampModel(models.Model):
         abstract = True
 
 
-class BaseModel(TimestampModel):
+class BaseModel(UUIDModel, TimestampModel):
     class Meta:
         abstract = True
