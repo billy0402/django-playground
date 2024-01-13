@@ -1,3 +1,0 @@
-{
-  "python.formatting.yapfArgs": ["--exclude src/core/settings.py"]
-}
