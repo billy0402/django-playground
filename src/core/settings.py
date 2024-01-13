@@ -57,6 +57,7 @@ THIRD_PARTY_APPS: list[str] = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_spectacular',
     'django_bootstrap5',
 ]
 

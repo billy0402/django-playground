@@ -17,23 +17,31 @@ Including another URLconf
 from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import include, path
+from drf_spectacular.views import (
+    SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+)
 from rest_framework.authtoken.views import obtain_auth_token
 
 admin.site.site_title = '書店 網站管理'
 admin.site.site_header = '書店 管理'
 
 urlpatterns = [
-    path('', lambda request: redirect('books:index'), name='root'),
+    # Pages
+    path('', lambda _: redirect('books:index'), name='root'),
     path('books/', include('src.app.books.urls')),
     path('auth/', include('src.app.authentication.urls')),
-
+    # API
     path('api/', include('src.app.api.urls')),
     path(
         'api/auth/',
         include('rest_framework.urls', namespace='rest_framework'),
     ),
     path('api/auth/token', obtain_auth_token, name='api_auth'),
-
+    # API Docs
+    path('api/schema', SpectacularAPIView.as_view(), name='schema'),
+    path('api/swagger', SpectacularSwaggerView.as_view(), name='swagger'),
+    path('api/redoc', SpectacularRedocView.as_view(), name='redoc'),
+    # Admin
     path('admin/', admin.site.urls),
 ]
 
