@@ -12,6 +12,16 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+import environ
+from split_settings.tools import include
+
+# Set up environment variables
+# https://github.com/joke2k/django-environ
+
+env = environ.Env()
+env.read_env()
+
+#
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,34 +30,42 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hfw(can9^wv5jtbl2_5)t1jpk!umq5w8*atglvsetar997^(un'  # noqa E501
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS: list[str] = []
+MODE = env('MODE', default='development' if DEBUG else 'production')
 
-CORS_ALLOWED_ORIGINS: list[str] = []
+ALLOWED_HOSTS: list[str] = env.list('ALLOWED_HOSTS')
+
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
 
 #
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #
+]
+
+THIRD_PARTY_APPS: list[str] = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'django_bootstrap5',
-    #
+]
+
+LOCAL_APPS = [
     'src.app.books',
     'src.app.api',
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,10 +105,7 @@ WSGI_APPLICATION = 'src.core.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
+    'default': env.db_url(),
 }
 
 #
@@ -153,26 +168,15 @@ EMAIL_PORT = 587
 
 EMAIL_USE_TLS = True
 
-try:
-    with open(BASE_DIR / 'core/email.txt', 'r') as file:
-        email_data = file.readlines()
-        email_account, email_password = email_data
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 
-        EMAIL_HOST_USER = email_account.strip()
-
-        EMAIL_HOST_PASSWORD = email_password.strip()
-except FileNotFoundError:
-    print('core/email.txt is not exists.')
-except ValueError:
-    print('core/email.txt does not have email account or password.')
-except Exception as e:
-    print(e)
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 #
-# REST Framework
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-}
+# Include components and environments settings
+# https://github.com/sobolevn/django-split-settings
+
+include(
+    'components/*.py',
+    f'environments/{MODE}.py',
+)
