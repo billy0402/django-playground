@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 
+from src.app.api.filters import BookFilter
 from src.app.books.models import Author, Book, Classification, Publisher, Tag
 
 from .serializers import (
@@ -32,3 +33,5 @@ class TagViewSet(ModelViewSet):
 class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filterset_class = BookFilter
+    search_fields = ('id', 'name')
