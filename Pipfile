@@ -14,6 +14,7 @@ django-bootstrap5 = "==23.4"
 [dev-packages]
 flake8 = "==7.0.0"
 flake8-commas = "==2.1.0"
+flake8-quotes = "==3.3.2"
 mypy = "==1.8.0"
 yapf = "==0.40.2"
 
