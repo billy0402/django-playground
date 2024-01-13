@@ -52,6 +52,7 @@ class Tag(BaseModel):
 
 class Book(BaseModel):
     name = models.CharField('書名', max_length=50)
+    introduction = models.TextField('簡介')
     price = models.PositiveIntegerField('價格')
     authors = models.ManyToManyField(Author, verbose_name='作者')
     publisher = models.ForeignKey(
@@ -65,7 +66,6 @@ class Book(BaseModel):
         verbose_name='分類',
     )
     tags = models.ManyToManyField(Tag, verbose_name='標籤')
-    introduction = models.TextField('簡介')
 
     def __str__(self):
         return self.name
