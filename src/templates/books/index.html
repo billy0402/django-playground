@@ -23,13 +23,13 @@
                 <tbody>
                 {% for book in books %}
                     <tr>
-                        <td>{{ book.id }}</td>
+                        <td>{{ book.id | stringformat:"s" | slice:":6" }}</td>
                         <td>
                             <a href="{% url 'books:show' book.id %}">
                                 {{ book.name }}
                             </a>
                         </td>
-                        <td>標籤: {{ book.tags.all | join:', ' }}</td>
+                        <td>{{ book.tags.all | join:', ' }}</td>
                         <td>{{ book.price }}</td>
                     </tr>
                 {% empty %}

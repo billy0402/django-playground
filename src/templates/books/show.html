@@ -14,7 +14,7 @@
         </a>
     {% endif %}
 
-    <h2>#{{ book.id }} {{ book.name }}</h2>
+    <h2>#{{ book.id | stringformat:"s" | slice:":6" }} {{ book.name }}</h2>
     <hr />
     <p>書名: {{ book.name }}</p>
     <p>價格: {{ book.price }}</p>
