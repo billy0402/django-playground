@@ -9,13 +9,13 @@ from .models import Book
 
 
 # Create your views here.
-@login_required
+# @login_required
 def index(request):
     books = Book.objects.all()
     return render(request, 'books/index.html', {'books': books})
 
 
-@login_required
+# @login_required
 def show(request, pk):
     book = get_object_or_404(Book, pk=pk)
     return render(request, 'books/show.html', {'book': book})
